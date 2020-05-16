@@ -1,0 +1,23 @@
+{
+  "name": "slot-machine",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "build:sass": "node-sass -r --output-style compressed scss/style.scss css/style.css",
+    "watch:sass": "npm run build:sass && npm run build:sass -- -w"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/compiuta/slot-machine.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/compiuta/slot-machine/issues"
+  },
+  "homepage": "https://github.com/compiuta/slot-machine#readme",
+  "devDependencies": {
+    "node-sass": "^4.14.1"
+  }
+}
