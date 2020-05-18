@@ -4,8 +4,13 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "build:sass": "node-sass -r --output-style compressed scss/style.scss css/style.css",
-    "watch:sass": "npm run build:sass && npm run build:sass -- -w"
+    "scss": "node-sass -r --output-style compressed -o dist/css src/scss/slot-machine.scss",
+    "concat:js": "mkdir -p dist/js && concat -o dist/js/app.js src/js/models/slot-machine-model.js src/js/controllers/slot-machine-controller.js src/js/views/slot-machine-view.js",
+    "concat": "npm run concat:js",
+    "uglify": "uglifyjs -o dist/js/app.min.js dist/js/app.js",
+    "build:css": "npm run scss",
+    "build:js": "npm run concat:js && npm run uglify",
+    "build": "npm run build:css && npm run build:js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +23,8 @@
   },
   "homepage": "https://github.com/compiuta/slot-machine#readme",
   "devDependencies": {
-    "node-sass": "^4.14.1"
+    "concat": "^1.0.3",
+    "node-sass": "^4.14.1",
+    "uglify-es": "^3.3.9"
   }
 }
