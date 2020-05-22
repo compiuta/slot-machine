@@ -8,8 +8,7 @@
 
     function createReelElement(object) {
         const reelElementContainer = document.createElement('div');
-
-        reelElementContainer.innerText = object.symbol;
+        const image = document.createElement('img');
 
         reelElementContainer.setAttribute('data-symbol', object.symbol);
         reelElementContainer.setAttribute('data-value', object.value);
@@ -17,6 +16,11 @@
 
         reelElementContainer.classList.add('slot--reel-element');
         reelElementContainer.classList.add(object.symbol);
+
+        image.classList.add('reel-image');
+        image.src = `dist/images/${object.symbol}.png`;
+
+        reelElementContainer.appendChild(image);
 
         return reelElementContainer;
     }
@@ -28,7 +32,7 @@
             data.forEach(function (object) {
                 const reelElement = createReelElement(object);
                 fragment.appendChild(reelElement);
-            })
+            });
 
             reel.appendChild(fragment);
 
