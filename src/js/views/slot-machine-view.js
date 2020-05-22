@@ -6,9 +6,32 @@
 
     const currentData = app.slotMachineController.getCurrentData('default');
 
+    function createReelElement(object) {
+        const reelElementContainer = document.createElement('div');
+
+        reelElementContainer.innerText = object.symbol;
+
+        reelElementContainer.setAttribute('data-symbol', object.symbol);
+        reelElementContainer.setAttribute('data-value', object.value);
+        reelElementContainer.setAttribute('data-frequency', object.frequency);
+
+        reelElementContainer.classList.add('slot--reel-element');
+        reelElementContainer.classList.add(object.symbol);
+
+        return reelElementContainer;
+    }
+
     function populateSlotReels(data) {
         slotReels.forEach(function (reel) {
-            reel.innerText = JSON.stringify(data);
+            const fragment = document.createDocumentFragment();
+
+            data.forEach(function (object) {
+                const reelElement = createReelElement(object);
+                fragment.appendChild(reelElement);
+            })
+
+            reel.appendChild(fragment);
+
         });
     }
 
