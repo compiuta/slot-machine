@@ -3,34 +3,34 @@
 
     const defaultSlotData = [
         {
-            symbol: 'diamond',
-            value: 800,
+            symbol: 'wild',
+            value: '',
             frequency: 2
         },
         {
             symbol: 'seven',
             value: 80,
-            frequency: 4
+            frequency: 1
         },
         {
             symbol: 'triple-bar',
             value: 40,
-            frequency: 6
+            frequency: 2
         },
         {
             symbol: 'double-bar',
             value: 25,
-            frequency: 8
+            frequency: 2
         },
         {
             symbol: 'single-bar',
             value: 10,
-            frequency: 10
+            frequency: 2
         },
         {
             symbol: 'cherry',
             value: 10,
-            frequency: 12
+            frequency: 1
         }
     ];
 
@@ -79,9 +79,32 @@
 
     const currentData = app.slotMachineController.getCurrentData('default');
 
+    function createReelElement(object) {
+        const reelElementContainer = document.createElement('div');
+
+        reelElementContainer.innerText = object.symbol;
+
+        reelElementContainer.setAttribute('data-symbol', object.symbol);
+        reelElementContainer.setAttribute('data-value', object.value);
+        reelElementContainer.setAttribute('data-frequency', object.frequency);
+
+        reelElementContainer.classList.add('slot--reel-element');
+        reelElementContainer.classList.add(object.symbol);
+
+        return reelElementContainer;
+    }
+
     function populateSlotReels(data) {
         slotReels.forEach(function (reel) {
-            reel.innerText = JSON.stringify(data);
+            const fragment = document.createDocumentFragment();
+
+            data.forEach(function (object) {
+                const reelElement = createReelElement(object);
+                fragment.appendChild(reelElement);
+            })
+
+            reel.appendChild(fragment);
+
         });
     }
 
