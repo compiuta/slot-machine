@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     background-color: $primary-color;
     color: $grey;
@@ -6,23 +10,28 @@ body {
 
 .slot--reel-container {
     display: flex;
+    overflow: hidden;
 }
 
 .slot--reel {
     position: relative;
-    margin: 10px;
+    margin: 0 10px;
+}
+
+.reel-image,
+.placeholder-image {
+    display: block;
+    width: 100%;
 }
 
 .placeholder-image {
     visibility: hidden;
-    width: 100%;
 }
 
 .slot--inner-reel {
     position: absolute;
     width: 100%;
-    height:100%;
-    overflow: hidden;
+    top: 0;
 }
 
 .slot--reel-element {
