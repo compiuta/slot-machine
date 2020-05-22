@@ -3,34 +3,34 @@
 
     const defaultSlotData = [
         {
-            symbol: 'diamond',
-            value: 800,
+            symbol: 'wild',
+            value: '',
             frequency: 2
         },
         {
             symbol: 'seven',
             value: 80,
-            frequency: 4
+            frequency: 1
         },
         {
             symbol: 'triple-bar',
             value: 40,
-            frequency: 6
+            frequency: 2
         },
         {
             symbol: 'double-bar',
             value: 25,
-            frequency: 8
+            frequency: 2
         },
         {
             symbol: 'single-bar',
             value: 10,
-            frequency: 10
+            frequency: 2
         },
         {
             symbol: 'cherry',
             value: 10,
-            frequency: 12
+            frequency: 1
         }
     ];
 
