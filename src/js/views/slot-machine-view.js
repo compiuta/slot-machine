@@ -41,43 +41,34 @@
         });
     }
 
-
-
     function spinReels() {
         const reelItemHeight = slotReels[0].parentNode.offsetHeight;
         const reelNodeCount = slotReels[0].childElementCount;
-        let numberOfSpins = 10;
-
+        const reelElementTopCount = reelNodeCount - 1;
+        const reelMaxHeight = reelItemHeight * -reelElementTopCount;
+        let spinIntervalTimeout = 10000;
 
         slotReels.forEach(function (reel) {
-            let currentTopPositionNumber = +(reel.style.top.split('p')[0]);
-            const stopOnElement = Math.ceil(Math.random() * reelNodeCount);
-            console.log(stopOnElement);
-            let i;
-            let n;
+            const stopOnElement = Math.ceil(Math.random() * reelElementTopCount);
 
-            for(i = 0; i <= numberOfSpins; i += 1) {
-                for(n = 0; n <= reelNodeCount; n += 1) {
-                        if (n < reelNodeCount) {
-                            currentTopPositionNumber = currentTopPositionNumber + reelItemHeight;
+            const spinInterval = setInterval(() => {
+                let currentTopPositionNumber = +(reel.style.top.split('p')[0]);
+                let newTopPosition;
 
-                            if(i === numberOfSpins && n === stopOnElement) {
-                                console.log('i: ' + i);
-                                console.log('numberofspin: ' + numberOfSpins);
-                                console.log('n: ' + n);
-                                console.log('stoponelement: ' + stopOnElement);
-                                break;
-
-                            }
-                        } else {
-                            currentTopPositionNumber = 0;
-                        }
-
-                    reel.style.top = `-${currentTopPositionNumber}px`;
+                if(currentTopPositionNumber !== reelMaxHeight) {
+                    newTopPosition = currentTopPositionNumber - reelItemHeight;
+                } else {
+                    newTopPosition = 0;
                 }
-            }
 
-            numberOfSpins += 1;
+                reel.style.top = `${newTopPosition}px`;
+            }, 50);
+
+            setTimeout(() => {
+                clearInterval(spinInterval);
+            }, spinIntervalTimeout);
+
+            spinIntervalTimeout += 500;
         });
     }
 
