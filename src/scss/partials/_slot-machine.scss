@@ -30,6 +30,7 @@ body {
 
 .slot--inner-reel {
     position: absolute;
+    transition: top .2s ease-in-out;
     width: 100%;
     top: 0;
 }
