@@ -124,6 +124,9 @@
         slotReels.forEach(function (reel) {
             const stopOnElement = Math.ceil(Math.random() * reelElementTopCount);
 
+            slotStartButton.classList.add('button--disabled');
+            slotStartButton.setAttribute('disabled', 'disabled');
+
             const spinInterval = setInterval(() => {
                 let currentTopPositionNumber = +(reel.style.top.split('p')[0]);
                 let newTopPosition;
@@ -139,6 +142,8 @@
 
             setTimeout(() => {
                 clearInterval(spinInterval);
+                slotStartButton.classList.remove('button--disabled');
+                slotStartButton.removeAttribute('disabled');
             }, spinIntervalTimeout);
 
             spinIntervalTimeout += 500;
