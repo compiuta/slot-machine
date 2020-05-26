@@ -8,6 +8,11 @@ body {
     font-family: $font-family;
 }
 
+.button--disabled {
+    background-color: red;
+    
+}
+
 .slot--reel-container {
     display: flex;
     overflow: hidden;
