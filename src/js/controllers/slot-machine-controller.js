@@ -1,8 +1,9 @@
 (function (window) {
     'use strict';
 
-    function evaluateRow() {
-
+    function evaluateSlotRow(chosenSlotsArray) {
+        alert('evaluating result...');
+        app.slotMachineView.showSlotResults();
     }
 
     function getCurrentData(dataType) {
@@ -16,6 +17,9 @@
         getCurrentData: function (dataType) {
             const dataRequested = getCurrentData(dataType);
             return dataRequested;
+        },
+        evaluateSlotRow: function (chosenSlotsArray) {
+            evaluateSlotRow(chosenSlotsArray);
         }
     }
 
