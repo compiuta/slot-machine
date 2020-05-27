@@ -50,8 +50,9 @@
 (function (window) {
     'use strict';
 
-    function evaluateRow() {
-
+    function evaluateSlotRow(chosenSlotsArray) {
+        alert('evaluating result...');
+        app.slotMachineView.showSlotResults();
     }
 
     function getCurrentData(dataType) {
@@ -65,6 +66,9 @@
         getCurrentData: function (dataType) {
             const dataRequested = getCurrentData(dataType);
             return dataRequested;
+        },
+        evaluateSlotRow: function (chosenSlotsArray) {
+            evaluateSlotRow(chosenSlotsArray);
         }
     }
 
@@ -119,10 +123,21 @@
         const reelNodeCount = slotReels[0].childElementCount;
         const reelElementTopCount = reelNodeCount - 1;
         const reelMaxHeight = reelItemHeight * -reelElementTopCount;
-        let spinIntervalTimeout = 10000;
+        const passOneReelSlotInterval = 50;
+        const fullSpinInterval = 300;
+        const initialSpinIntervalTimeout = 7500;
 
-        slotReels.forEach(function (reel) {
-            const stopOnElement = Math.ceil(Math.random() * reelElementTopCount);
+        console.log(`reel count using .length ${slotReels.length}`);
+        console.log(reelElementTopCount);
+
+
+        slotReels.forEach(function (reel, index) {
+            const selectRandomReelSlot = Math.ceil(Math.random() * reelNodeCount);
+            const stopOnElement = selectRandomReelSlot - 1;
+            const spinIntervalTimeout = initialSpinIntervalTimeout + (index * fullSpinInterval) + (passOneReelSlotInterval * stopOnElement);
+console.log('stop on element '  + stopOnElement);
+console.log('selectRandomReelSlot: ' + selectRandomReelSlot)
+            reel.setAttribute('data-chosen-slot', selectRandomReelSlot);
 
             slotStartButton.classList.add('button--disabled');
             slotStartButton.setAttribute('disabled', 'disabled');
@@ -138,16 +153,24 @@
                 }
 
                 reel.style.top = `${newTopPosition}px`;
-            }, 50);
+            }, passOneReelSlotInterval);
 
             setTimeout(() => {
                 clearInterval(spinInterval);
-                slotStartButton.classList.remove('button--disabled');
-                slotStartButton.removeAttribute('disabled');
+
+                if(index === (slotReels.length - 1)) {
+                    const chosenSlotsArray = document.querySelectorAll('[data-chosen-slot]');
+                    app.slotMachineController.evaluateSlotRow(chosenSlotsArray);
+                }
             }, spinIntervalTimeout);
 
-            spinIntervalTimeout += 500;
         });
+    }
+
+    function showSlotResults(results) {
+        alert('results');
+        slotStartButton.classList.remove('button--disabled');
+        slotStartButton.removeAttribute('disabled');
     }
 
     populateSlotReels(currentData);
@@ -157,6 +180,9 @@
     console.log('view initialized');
 
     const slotMachineView = {
+        showSlotResults: function (results) {
+            showSlotResults(results);
+        }
     }
 
     window.app = window.app || {};

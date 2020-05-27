@@ -51,15 +51,13 @@
         const initialSpinIntervalTimeout = 7500;
 
         console.log(`reel count using .length ${slotReels.length}`);
-        console.log(reelElementTopCount);
 
 
         slotReels.forEach(function (reel, index) {
             const selectRandomReelSlot = Math.ceil(Math.random() * reelNodeCount);
             const stopOnElement = selectRandomReelSlot - 1;
             const spinIntervalTimeout = initialSpinIntervalTimeout + (index * fullSpinInterval) + (passOneReelSlotInterval * stopOnElement);
-console.log('stop on element '  + stopOnElement);
-console.log('selectRandomReelSlot: ' + selectRandomReelSlot)
+
             reel.setAttribute('data-chosen-slot', selectRandomReelSlot);
 
             slotStartButton.classList.add('button--disabled');
