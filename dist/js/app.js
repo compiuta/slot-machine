@@ -51,7 +51,7 @@
     'use strict';
 
     function evaluateSlotRow(chosenSlotsArray) {
-        alert('evaluating result...');
+        console.log('evaluating result...');
         app.slotMachineView.showSlotResults();
     }
 
@@ -128,15 +128,18 @@
         const initialSpinIntervalTimeout = 7500;
 
         console.log(`reel count using .length ${slotReels.length}`);
-        console.log(reelElementTopCount);
-
 
         slotReels.forEach(function (reel, index) {
             const selectRandomReelSlot = Math.ceil(Math.random() * reelNodeCount);
             const stopOnElement = selectRandomReelSlot - 1;
             const spinIntervalTimeout = initialSpinIntervalTimeout + (index * fullSpinInterval) + (passOneReelSlotInterval * stopOnElement);
-console.log('stop on element '  + stopOnElement);
-console.log('selectRandomReelSlot: ' + selectRandomReelSlot)
+
+            console.log('selectRandomReelSlot ' + selectRandomReelSlot);
+            console.log('stopOnElement: ' + stopOnElement);
+            console.log('spinIntervalTimeout: ' + spinIntervalTimeout);
+
+            reel.style.top = 0;
+
             reel.setAttribute('data-chosen-slot', selectRandomReelSlot);
 
             slotStartButton.classList.add('button--disabled');
@@ -168,7 +171,7 @@ console.log('selectRandomReelSlot: ' + selectRandomReelSlot)
     }
 
     function showSlotResults(results) {
-        alert('results');
+        console.log('results');
         slotStartButton.classList.remove('button--disabled');
         slotStartButton.removeAttribute('disabled');
     }

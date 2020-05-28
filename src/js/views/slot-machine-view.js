@@ -52,11 +52,16 @@
 
         console.log(`reel count using .length ${slotReels.length}`);
 
-
         slotReels.forEach(function (reel, index) {
             const selectRandomReelSlot = Math.ceil(Math.random() * reelNodeCount);
             const stopOnElement = selectRandomReelSlot - 1;
             const spinIntervalTimeout = initialSpinIntervalTimeout + (index * fullSpinInterval) + (passOneReelSlotInterval * stopOnElement);
+
+            console.log('selectRandomReelSlot ' + selectRandomReelSlot);
+            console.log('stopOnElement: ' + stopOnElement);
+            console.log('spinIntervalTimeout: ' + spinIntervalTimeout);
+
+            reel.style.top = 0;
 
             reel.setAttribute('data-chosen-slot', selectRandomReelSlot);
 
@@ -89,7 +94,7 @@
     }
 
     function showSlotResults(results) {
-        alert('results');
+        console.log('results');
         slotStartButton.classList.remove('button--disabled');
         slotStartButton.removeAttribute('disabled');
     }

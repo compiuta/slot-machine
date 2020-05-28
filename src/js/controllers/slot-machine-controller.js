@@ -2,7 +2,7 @@
     'use strict';
 
     function evaluateSlotRow(chosenSlotsArray) {
-        alert('evaluating result...');
+        console.log('evaluating result...');
         app.slotMachineView.showSlotResults();
     }
 
