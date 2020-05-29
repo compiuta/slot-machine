@@ -1,38 +1,34 @@
 (function (window) {
     'use strict';
 
-    const defaultSlotData = [
-        {
-            symbol: 'wild',
-            value: '',
-            frequency: 2
-        },
-        {
-            symbol: 'seven',
-            value: 80,
-            frequency: 1
-        },
-        {
-            symbol: 'triple-bar',
-            value: 40,
-            frequency: 2
-        },
-        {
-            symbol: 'double-bar',
-            value: 25,
-            frequency: 2
-        },
-        {
-            symbol: 'single-bar',
-            value: 10,
-            frequency: 2
-        },
-        {
-            symbol: 'cherry',
-            value: 10,
-            frequency: 1
+    const defaultSlotData = {
+        slots: {
+            dimond: {
+                symbol: 'diamond',
+                value: 200
+            },
+            seven: {
+                symbol: 'seven',
+                value: 80
+            },
+            tripleBar: {
+                symbol: 'triple-bar',
+                value: 40
+            },
+            doubleBar: {
+                symbol: 'double-bar',
+                value: 30
+            },
+            singleBar: {
+                symbol: 'single-bar',
+                value: 20
+            },
+            cherry: {
+                symbol: 'cherry',
+                value: 10
+            }
         }
-    ];
+    };
 
     console.log('model initialzed');
 
