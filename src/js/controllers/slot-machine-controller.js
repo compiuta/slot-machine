@@ -1,14 +1,25 @@
 (function (window) {
     'use strict';
 
+    let currentData;
+
     function evaluateSlotRow(chosenSlotsArray) {
-        console.log('evaluating result...');
-        app.slotMachineView.showSlotResults();
+        const slotToMatch = chosenSlotsArray[0].dataset.chosenSlot;
+        let isMatch = true;
+
+        chosenSlotsArray.forEach(slot => {
+           if(slot.dataset.chosenSlot !== slotToMatch) {
+               isMatch = false;
+               return;
+           }
+        });
+
+        app.slotMachineView.showSlotResults(isMatch, slotToMatch);
     }
 
     function getCurrentData(dataType) {
-        const dataRequested = app.slotMachineModel.getData(dataType);
-        return dataRequested;
+         currentData = app.slotMachineModel.getData(dataType);
+        return currentData;
     }
 
     console.log('controller initialized');
