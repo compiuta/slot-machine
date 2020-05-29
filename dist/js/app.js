@@ -1,38 +1,34 @@
 (function (window) {
     'use strict';
 
-    const defaultSlotData = [
-        {
-            symbol: 'wild',
-            value: '',
-            frequency: 2
-        },
-        {
-            symbol: 'seven',
-            value: 80,
-            frequency: 1
-        },
-        {
-            symbol: 'triple-bar',
-            value: 40,
-            frequency: 2
-        },
-        {
-            symbol: 'double-bar',
-            value: 25,
-            frequency: 2
-        },
-        {
-            symbol: 'single-bar',
-            value: 10,
-            frequency: 2
-        },
-        {
-            symbol: 'cherry',
-            value: 10,
-            frequency: 1
+    const defaultSlotData = {
+        slots: {
+            dimond: {
+                symbol: 'diamond',
+                value: 200
+            },
+            seven: {
+                symbol: 'seven',
+                value: 80
+            },
+            tripleBar: {
+                symbol: 'triple-bar',
+                value: 40
+            },
+            doubleBar: {
+                symbol: 'double-bar',
+                value: 30
+            },
+            singleBar: {
+                symbol: 'single-bar',
+                value: 20
+            },
+            cherry: {
+                symbol: 'cherry',
+                value: 10
+            }
         }
-    ];
+    };
 
     console.log('model initialzed');
 
@@ -50,14 +46,25 @@
 (function (window) {
     'use strict';
 
+    let currentData;
+
     function evaluateSlotRow(chosenSlotsArray) {
-        console.log('evaluating result...');
-        app.slotMachineView.showSlotResults();
+        const slotToMatch = chosenSlotsArray[0].dataset.chosenSlot;
+        let isMatch = true;
+
+        chosenSlotsArray.forEach(slot => {
+           if(slot.dataset.chosenSlot !== slotToMatch) {
+               isMatch = false;
+               return;
+           }
+        });
+
+        app.slotMachineView.showSlotResults(isMatch, slotToMatch);
     }
 
     function getCurrentData(dataType) {
-        const dataRequested = app.slotMachineModel.getData(dataType);
-        return dataRequested;
+         currentData = app.slotMachineModel.getData(dataType);
+        return currentData;
     }
 
     console.log('controller initialized');
@@ -84,13 +91,14 @@
 
     const currentData = app.slotMachineController.getCurrentData('default');
 
-    function createReelElement(object) {
+    function createReelElement(object, key, index) {
         const reelElementContainer = document.createElement('div');
         const image = document.createElement('img');
+        const slotPosition = index + 1;
 
-        reelElementContainer.setAttribute('data-symbol', object.symbol);
-        reelElementContainer.setAttribute('data-value', object.value);
-        reelElementContainer.setAttribute('data-frequency', object.frequency);
+        reelElementContainer.setAttribute('data-slot-position', slotPosition);
+        reelElementContainer.setAttribute('data-symbol', key);
+        reelElementContainer.setAttribute('data-slot-value', object.value);
 
         reelElementContainer.classList.add('slot--reel-element');
         reelElementContainer.classList.add(object.symbol);
@@ -104,13 +112,15 @@
     }
 
     function populateSlotReels(data) {
+        const slotData = data.slots;
+
         slotReels.forEach(function (reel) {
             const fragment = document.createDocumentFragment();
 
             reel.style.top = 0;
 
-            data.forEach(function (object) {
-                const reelElement = createReelElement(object);
+            Object.keys(slotData).forEach(function (key, index) {
+                const reelElement = createReelElement(slotData[key], key, index);
                 fragment.appendChild(reelElement);
             });
 
@@ -162,16 +172,21 @@
                 clearInterval(spinInterval);
 
                 if(index === (slotReels.length - 1)) {
-                    const chosenSlotsArray = document.querySelectorAll('[data-chosen-slot]');
-                    app.slotMachineController.evaluateSlotRow(chosenSlotsArray);
+                    app.slotMachineController.evaluateSlotRow(slotReels);
                 }
             }, spinIntervalTimeout);
 
         });
     }
 
-    function showSlotResults(results) {
-        console.log('results');
+    function showSlotResults(isMatch, slotPosition) {
+        if(isMatch) {
+            const matchedSlot = document.querySelector(`[data-slot-position=${slotPosition}]`);
+            console.log(`you win ${matchedSlot.dataset.slotValue}`);
+        } else {
+            console.log('try again');
+        }
+        
         slotStartButton.classList.remove('button--disabled');
         slotStartButton.removeAttribute('disabled');
     }
