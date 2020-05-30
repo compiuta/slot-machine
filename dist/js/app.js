@@ -87,7 +87,7 @@
 
     const slotReels = document.querySelectorAll('[data-reel]');
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
-    let reelSpinIntervalArr = [];
+    const userCredits = document.querySelector('[data-slot="credits"]');
 
     const currentData = app.slotMachineController.getCurrentData('default');
 
@@ -128,6 +128,28 @@
         });
     }
 
+    function udateCredits(amount) {
+        let currentCredits;
+        let newCreditsAmount;
+
+        console.log(typeof amount);
+
+        if(userCredits.dataset.credits) {
+            currentCredits = +(userCredits.dataset.credits);
+        } else {
+            currentCredits = 5;
+        }
+
+        if(amount) {
+            newCreditsAmount = currentCredits + amount;
+        } else {
+            newCreditsAmount = currentCredits;
+        }
+
+        userCredits.setAttribute('data-credits', newCreditsAmount);
+        userCredits.innerText = newCreditsAmount;
+    }
+
     function spinReels() {
         const reelItemHeight = slotReels[0].parentNode.offsetHeight;
         const reelNodeCount = slotReels[0].childElementCount;
@@ -136,6 +158,8 @@
         const passOneReelSlotInterval = 50;
         const fullSpinInterval = 300;
         const initialSpinIntervalTimeout = 7500;
+
+        udateCredits(-1);
 
         console.log(`reel count using .length ${slotReels.length}`);
 
@@ -181,15 +205,17 @@
 
     function showSlotResults(isMatch, slotPosition) {
         if(isMatch) {
-            const matchedSlot = document.querySelector(`[data-slot-position=${slotPosition}]`);
+            const matchedSlot = document.querySelector(`[data-slot-position="${slotPosition}"]`);
             console.log(`you win ${matchedSlot.dataset.slotValue}`);
         } else {
             console.log('try again');
         }
-        
+
         slotStartButton.classList.remove('button--disabled');
         slotStartButton.removeAttribute('disabled');
     }
+
+    udateCredits();
 
     populateSlotReels(currentData);
 
@@ -198,8 +224,8 @@
     console.log('view initialized');
 
     const slotMachineView = {
-        showSlotResults: function (results) {
-            showSlotResults(results);
+        showSlotResults: function (isMatch, slotToMatch) {
+            showSlotResults(isMatch, slotToMatch);
         }
     }
 
