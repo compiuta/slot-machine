@@ -30,6 +30,25 @@
         }
     };
 
+    function updateCredits(amount) {
+        const getCredits = localStorage.getItem('userCredits');
+        let currentCredits;
+
+        if(getCredits) {
+            currentCredits = +(getCredits);
+        } else {
+            localStorage.setItem('userCredits', 5);
+            currentCredits = 5;
+        }
+
+        if(amount) {
+            currentCredits += amount;
+            localStorage.setItem('userCredits', currentCredits);
+        }
+
+        app.slotMachineController.creditsUpdated(currentCredits);
+    }
+
     console.log('model initialzed');
 
     const slotMachineModel = {
@@ -37,6 +56,9 @@
             if (stateRequested === 'default') {
                 return defaultSlotData;
             }
+        },
+        updateCredits: function (amount) {
+            updateCredits(amount);
         }
     }
 
