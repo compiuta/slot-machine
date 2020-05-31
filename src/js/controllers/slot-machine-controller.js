@@ -22,6 +22,14 @@
         return currentData;
     }
 
+    function updateCredits(amount) {
+        app.slotMachineModel.updateCredits(amount);
+    }
+
+    function creditsUpdated(updatedCredits) {
+        app.slotMachineView.populateUserCredits(updatedCredits);
+    }
+
     console.log('controller initialized');
 
     const slotMachineController = {
@@ -31,6 +39,12 @@
         },
         evaluateSlotRow: function (chosenSlotsArray) {
             evaluateSlotRow(chosenSlotsArray);
+        },
+        updateCredits: function (amount) {
+            updateCredits(amount);
+        },
+        creditsUpdated: function (updatedCredits) {
+            creditsUpdated(updatedCredits);
         }
     }
 
