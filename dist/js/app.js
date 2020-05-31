@@ -30,6 +30,25 @@
         }
     };
 
+    function updateCredits(amount) {
+        const getCredits = localStorage.getItem('userCredits');
+        let currentCredits;
+
+        if(getCredits) {
+            currentCredits = +(getCredits);
+        } else {
+            localStorage.setItem('userCredits', 5);
+            currentCredits = 5;
+        }
+
+        if(amount) {
+            currentCredits += amount;
+            localStorage.setItem('userCredits', currentCredits);
+        }
+
+        app.slotMachineController.creditsUpdated(currentCredits);
+    }
+
     console.log('model initialzed');
 
     const slotMachineModel = {
@@ -37,6 +56,9 @@
             if (stateRequested === 'default') {
                 return defaultSlotData;
             }
+        },
+        updateCredits: function (amount) {
+            updateCredits(amount);
         }
     }
 
@@ -67,6 +89,14 @@
         return currentData;
     }
 
+    function updateCredits(amount) {
+        app.slotMachineModel.updateCredits(amount);
+    }
+
+    function creditsUpdated(updatedCredits) {
+        app.slotMachineView.populateUserCredits(updatedCredits);
+    }
+
     console.log('controller initialized');
 
     const slotMachineController = {
@@ -76,6 +106,12 @@
         },
         evaluateSlotRow: function (chosenSlotsArray) {
             evaluateSlotRow(chosenSlotsArray);
+        },
+        updateCredits: function (amount) {
+            updateCredits(amount);
+        },
+        creditsUpdated: function (updatedCredits) {
+            creditsUpdated(updatedCredits);
         }
     }
 
@@ -88,7 +124,6 @@
     const slotReels = document.querySelectorAll('[data-reel]');
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
     const userCredits = document.querySelector('[data-slot="credits"]');
-
     const currentData = app.slotMachineController.getCurrentData('default');
 
     function createReelElement(object, key, index) {
@@ -128,26 +163,9 @@
         });
     }
 
-    function udateCredits(amount) {
-        let currentCredits;
-        let newCreditsAmount;
-
-        console.log(typeof amount);
-
-        if(userCredits.dataset.credits) {
-            currentCredits = +(userCredits.dataset.credits);
-        } else {
-            currentCredits = 5;
-        }
-
-        if(amount) {
-            newCreditsAmount = currentCredits + amount;
-        } else {
-            newCreditsAmount = currentCredits;
-        }
-
-        userCredits.setAttribute('data-credits', newCreditsAmount);
-        userCredits.innerText = newCreditsAmount;
+    function populateUserCredits(amount) {
+        userCredits.setAttribute('data-credits', amount);
+        userCredits.innerText = amount;
     }
 
     function spinReels() {
@@ -159,7 +177,7 @@
         const fullSpinInterval = 300;
         const initialSpinIntervalTimeout = 7500;
 
-        udateCredits(-1);
+        app.slotMachineController.updateCredits(-1);
 
         console.log(`reel count using .length ${slotReels.length}`);
 
@@ -215,17 +233,21 @@
         slotStartButton.removeAttribute('disabled');
     }
 
-    udateCredits();
-
     populateSlotReels(currentData);
 
     slotStartButton.addEventListener('click', spinReels);
+    window.addEventListener('load', function () {
+        app.slotMachineController.updateCredits();
+    });
 
     console.log('view initialized');
 
     const slotMachineView = {
         showSlotResults: function (isMatch, slotToMatch) {
             showSlotResults(isMatch, slotToMatch);
+        },
+        populateUserCredits: function (amount) {
+            populateUserCredits(amount);
         }
     }
 
