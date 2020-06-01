@@ -30,7 +30,7 @@
         }
     };
 
-    function updateCredits(amount) {
+    function updateCredits(amount, waitingResults) {
         const getCredits = localStorage.getItem('userCredits');
         let currentCredits;
 
@@ -46,7 +46,7 @@
             localStorage.setItem('userCredits', currentCredits);
         }
 
-        app.slotMachineController.creditsUpdated(currentCredits);
+        app.slotMachineController.creditsUpdated(currentCredits, waitingResults, amount);
     }
 
     console.log('model initialzed');
@@ -57,8 +57,8 @@
                 return defaultSlotData;
             }
         },
-        updateCredits: function (amount) {
-            updateCredits(amount);
+        updateCredits: function (amount, waitingResults) {
+            updateCredits(amount, waitingResults);
         }
     }
 
