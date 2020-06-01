@@ -30,7 +30,7 @@
         }
     };
 
-    function updateCredits(amount) {
+    function updateCredits(amount, waitingResults) {
         const getCredits = localStorage.getItem('userCredits');
         let currentCredits;
 
@@ -46,7 +46,7 @@
             localStorage.setItem('userCredits', currentCredits);
         }
 
-        app.slotMachineController.creditsUpdated(currentCredits);
+        app.slotMachineController.creditsUpdated(currentCredits, waitingResults, amount);
     }
 
     console.log('model initialzed');
@@ -57,8 +57,8 @@
                 return defaultSlotData;
             }
         },
-        updateCredits: function (amount) {
-            updateCredits(amount);
+        updateCredits: function (amount, waitingResults) {
+            updateCredits(amount, waitingResults);
         }
     }
 
@@ -70,8 +70,18 @@
 
     let currentData;
 
+    function getCurrentData(dataType) {
+        currentData = app.slotMachineModel.getData(dataType);
+       return currentData;
+   }
+
+   function updateCredits(amount, waitingResponse) {
+       app.slotMachineModel.updateCredits(amount, waitingResponse);
+   }
+
     function evaluateSlotRow(chosenSlotsArray) {
         const slotToMatch = chosenSlotsArray[0].dataset.chosenSlot;
+        const slotValue = currentData.slots[slotToMatch].value;
         let isMatch = true;
 
         chosenSlotsArray.forEach(slot => {
@@ -81,20 +91,19 @@
            }
         });
 
-        app.slotMachineView.showSlotResults(isMatch, slotToMatch);
+        if(isMatch) {
+            updateCredits(slotValue, true);
+        } else {
+            app.slotMachineView.showSlotResults(isMatch, slotValue);
+        }
     }
 
-    function getCurrentData(dataType) {
-         currentData = app.slotMachineModel.getData(dataType);
-        return currentData;
-    }
-
-    function updateCredits(amount) {
-        app.slotMachineModel.updateCredits(amount);
-    }
-
-    function creditsUpdated(updatedCredits) {
+    function creditsUpdated(updatedCredits, waitingResults, valueAdded) {
         app.slotMachineView.populateUserCredits(updatedCredits);
+
+        if(waitingResults) {
+            app.slotMachineView.showSlotResults(true, valueAdded);
+        }
     }
 
     console.log('controller initialized');
@@ -107,11 +116,11 @@
         evaluateSlotRow: function (chosenSlotsArray) {
             evaluateSlotRow(chosenSlotsArray);
         },
-        updateCredits: function (amount) {
-            updateCredits(amount);
+        updateCredits: function (amount, waitingResponse) {
+            updateCredits(amount, waitingResponse);
         },
-        creditsUpdated: function (updatedCredits) {
-            creditsUpdated(updatedCredits);
+        creditsUpdated: function (updatedCredits, waitingResults, valueAdded) {
+            creditsUpdated(updatedCredits, waitingResults, valueAdded);
         }
     }
 
@@ -125,6 +134,16 @@
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
     const userCredits = document.querySelector('[data-slot="credits"]');
     const currentData = app.slotMachineController.getCurrentData('default');
+
+    function setSpinButtonState(isActive) {
+        if(isActive) {
+            slotStartButton.classList.remove('button--disabled');
+            slotStartButton.removeAttribute('disabled');
+        } else {
+            slotStartButton.classList.add('button--disabled');
+            slotStartButton.setAttribute('disabled', 'disabled');
+        }
+    }
 
     function createReelElement(object, key, index) {
         const reelElementContainer = document.createElement('div');
@@ -183,6 +202,7 @@
 
         slotReels.forEach(function (reel, index) {
             const selectRandomReelSlot = Math.ceil(Math.random() * reelNodeCount);
+            const chosenReelSlotElementSymbol = document.querySelector(`[data-slot-position="${selectRandomReelSlot}"]`).dataset.symbol;
             const stopOnElement = selectRandomReelSlot - 1;
             const spinIntervalTimeout = initialSpinIntervalTimeout + (index * fullSpinInterval) + (passOneReelSlotInterval * stopOnElement);
 
@@ -192,10 +212,9 @@
 
             reel.style.top = 0;
 
-            reel.setAttribute('data-chosen-slot', selectRandomReelSlot);
+            reel.setAttribute('data-chosen-slot', chosenReelSlotElementSymbol);
 
-            slotStartButton.classList.add('button--disabled');
-            slotStartButton.setAttribute('disabled', 'disabled');
+            setSpinButtonState(false);
 
             const spinInterval = setInterval(() => {
                 let currentTopPositionNumber = +(reel.style.top.split('p')[0]);
@@ -221,16 +240,14 @@
         });
     }
 
-    function showSlotResults(isMatch, slotPosition) {
+    function showSlotResults(isMatch, slotValue) {
         if(isMatch) {
-            const matchedSlot = document.querySelector(`[data-slot-position="${slotPosition}"]`);
-            console.log(`you win ${matchedSlot.dataset.slotValue}`);
+            console.log(`you win ${slotValue}`);
         } else {
             console.log('try again');
         }
 
-        slotStartButton.classList.remove('button--disabled');
-        slotStartButton.removeAttribute('disabled');
+        setSpinButtonState(true);
     }
 
     populateSlotReels(currentData);
@@ -243,8 +260,8 @@
     console.log('view initialized');
 
     const slotMachineView = {
-        showSlotResults: function (isMatch, slotToMatch) {
-            showSlotResults(isMatch, slotToMatch);
+        showSlotResults: function (isMatch, slotValue) {
+            showSlotResults(isMatch, slotValue);
         },
         populateUserCredits: function (amount) {
             populateUserCredits(amount);
