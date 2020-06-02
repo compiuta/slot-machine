@@ -5,6 +5,7 @@
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
     const userCredits = document.querySelector('[data-slot="credits"]');
     const currentData = app.slotMachineController.getCurrentData('default');
+    let creditCounter;
 
     function setSpinButtonState(isActive) {
         if(isActive) {
@@ -56,6 +57,12 @@
     function populateUserCredits(amount) {
         userCredits.setAttribute('data-credits', amount);
         userCredits.innerText = amount;
+        creditCounter = amount;
+
+        if(amount === 0) {
+            setSpinButtonState(false);
+            showSlotResults();
+        }
     }
 
     function spinReels() {
@@ -112,13 +119,17 @@
     }
 
     function showSlotResults(isMatch, slotValue) {
-        if(isMatch) {
-            console.log(`you win ${slotValue}`);
+        if(creditCounter === 0) {
+            console.log('game over');
         } else {
-            console.log('try again');
-        }
+            if(isMatch) {
+                console.log(`you win ${slotValue}`);
+            } else {
+                console.log('try again');
+            }
 
-        setSpinButtonState(true);
+            setSpinButtonState(true);
+        }
     }
 
     populateSlotReels(currentData);
