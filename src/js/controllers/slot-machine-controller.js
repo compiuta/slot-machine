@@ -27,14 +27,14 @@
         if(isMatch) {
             updateCredits(slotValue, true);
         } else {
-            app.slotMachineView.showSlotResults(isMatch, slotValue);
+            app.slotMachineView.showSlotResults(false);
         }
     }
 
-    function creditsUpdated(updatedCredits, waitingResults, valueAdded) {
+    function creditsUpdated(updatedCredits, valueAdded) {
         app.slotMachineView.populateUserCredits(updatedCredits);
 
-        if(waitingResults) {
+        if(valueAdded) {
             app.slotMachineView.showSlotResults(true, valueAdded);
         }
     }
@@ -52,8 +52,8 @@
         updateCredits: function (amount, waitingResponse) {
             updateCredits(amount, waitingResponse);
         },
-        creditsUpdated: function (updatedCredits, waitingResults, valueAdded) {
-            creditsUpdated(updatedCredits, waitingResults, valueAdded);
+        creditsUpdated: function (updatedCredits,  valueAdded) {
+            creditsUpdated(updatedCredits, valueAdded);
         }
     }
 
