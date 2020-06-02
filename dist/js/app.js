@@ -30,7 +30,7 @@
         }
     };
 
-    function updateCredits(amount, waitingResults) {
+    function updateCredits(amount) {
         const getCredits = localStorage.getItem('userCredits');
         let currentCredits;
 
@@ -46,7 +46,7 @@
             localStorage.setItem('userCredits', currentCredits);
         }
 
-        app.slotMachineController.creditsUpdated(currentCredits, waitingResults, amount);
+        app.slotMachineController.creditsUpdated(currentCredits, amount);
     }
 
     console.log('model initialzed');
@@ -57,8 +57,8 @@
                 return defaultSlotData;
             }
         },
-        updateCredits: function (amount, waitingResults) {
-            updateCredits(amount, waitingResults);
+        updateCredits: function (amount) {
+            updateCredits(amount);
         }
     }
 
@@ -94,14 +94,14 @@
         if(isMatch) {
             updateCredits(slotValue, true);
         } else {
-            app.slotMachineView.showSlotResults(isMatch, slotValue);
+            app.slotMachineView.showSlotResults(false);
         }
     }
 
-    function creditsUpdated(updatedCredits, waitingResults, valueAdded) {
+    function creditsUpdated(updatedCredits, valueAdded) {
         app.slotMachineView.populateUserCredits(updatedCredits);
 
-        if(waitingResults) {
+        if(valueAdded) {
             app.slotMachineView.showSlotResults(true, valueAdded);
         }
     }
@@ -119,8 +119,8 @@
         updateCredits: function (amount, waitingResponse) {
             updateCredits(amount, waitingResponse);
         },
-        creditsUpdated: function (updatedCredits, waitingResults, valueAdded) {
-            creditsUpdated(updatedCredits, waitingResults, valueAdded);
+        creditsUpdated: function (updatedCredits,  valueAdded) {
+            creditsUpdated(updatedCredits, valueAdded);
         }
     }
 
@@ -134,6 +134,7 @@
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
     const userCredits = document.querySelector('[data-slot="credits"]');
     const currentData = app.slotMachineController.getCurrentData('default');
+    let creditCounter;
 
     function setSpinButtonState(isActive) {
         if(isActive) {
@@ -185,6 +186,12 @@
     function populateUserCredits(amount) {
         userCredits.setAttribute('data-credits', amount);
         userCredits.innerText = amount;
+        creditCounter = amount;
+
+        if(amount === 0) {
+            setSpinButtonState(false);
+            showSlotResults();
+        }
     }
 
     function spinReels() {
@@ -241,13 +248,17 @@
     }
 
     function showSlotResults(isMatch, slotValue) {
-        if(isMatch) {
-            console.log(`you win ${slotValue}`);
+        if(creditCounter === 0) {
+            console.log('game over');
         } else {
-            console.log('try again');
-        }
+            if(isMatch) {
+                console.log(`you win ${slotValue}`);
+            } else {
+                console.log('try again');
+            }
 
-        setSpinButtonState(true);
+            setSpinButtonState(true);
+        }
     }
 
     populateSlotReels(currentData);
