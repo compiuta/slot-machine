@@ -1,10 +1,13 @@
 (function (window) {
     'use strict';
 
+    const bodyTag = document.querySelector('[data-element="bodyTag"]');
     const slotReels = document.querySelectorAll('[data-reel]');
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
+    const slotNewGameButton = document.querySelector('[data-slot="newGameButton"]');
     const userCredits = document.querySelector('[data-slot="credits"]');
     const currentData = app.slotMachineController.getCurrentData('default');
+    const resultStateTimeout = 1000;
     let creditCounter;
 
     function setSpinButtonState(isActive) {
@@ -65,6 +68,19 @@
         }
     }
 
+    function newReelPosition(reel, reelItemHeight, reelMaxHeight) {
+        let currentTopPositionNumber = +(reel.style.top.split('p')[0]);
+        let newTopPosition;
+
+        if(currentTopPositionNumber !== reelMaxHeight) {
+            newTopPosition = currentTopPositionNumber - reelItemHeight;
+        } else {
+            newTopPosition = 0;
+        }
+
+        return `${newTopPosition}px`;
+    }
+
     function spinReels() {
         const reelItemHeight = slotReels[0].parentNode.offsetHeight;
         const reelNodeCount = slotReels[0].childElementCount;
@@ -95,16 +111,7 @@
             setSpinButtonState(false);
 
             const spinInterval = setInterval(() => {
-                let currentTopPositionNumber = +(reel.style.top.split('p')[0]);
-                let newTopPosition;
-
-                if(currentTopPositionNumber !== reelMaxHeight) {
-                    newTopPosition = currentTopPositionNumber - reelItemHeight;
-                } else {
-                    newTopPosition = 0;
-                }
-
-                reel.style.top = `${newTopPosition}px`;
+                reel.style.top = newReelPosition(reel, reelItemHeight, reelMaxHeight);
             }, passOneReelSlotInterval);
 
             setTimeout(() => {
@@ -118,23 +125,61 @@
         });
     }
 
-    function showSlotResults(isMatch, slotValue) {
-        if(creditCounter === 0) {
-            console.log('game over');
-        } else {
-            if(isMatch) {
-                console.log(`you win ${slotValue}`);
-            } else {
-                console.log('try again');
-            }
+    function toggleResultState(state) {
+        bodyTag.classList.toggle(state);
+    }
 
+    function startNewGame() {
+        slotReels.forEach(reel => {
+            reel.style.top = 0;
+        });
+
+        toggleResultState('game-over');
+        slotNewGameButton.setAttribute('disabled', 'disabled');
+        app.slotMachineController.updateCredits(5);
+        setSpinButtonState(true);
+    }
+
+    function gameOver() {
+        toggleResultState('game-over');
+        slotNewGameButton.removeAttribute('disabled');
+    }
+
+    function playerWins(valueWon) {
+        toggleResultState('you-win');
+        console.log(valueWon);
+
+        setTimeout(() => {
+            toggleResultState('you-win');
             setSpinButtonState(true);
+        }, resultStateTimeout);
+    }
+
+    function playerLoses() {
+        toggleResultState('try-again');
+
+        setTimeout(() => {
+            toggleResultState('try-again');
+            setSpinButtonState(true);
+        }, resultStateTimeout);
+    }
+
+    function showSlotResults(isMatch, slotValue) {
+        if (creditCounter === 0) {
+            gameOver();
+        } else {
+            if (isMatch) {
+                playerWins(slotValue);
+            } else {
+                playerLoses();
+            }
         }
     }
 
     populateSlotReels(currentData);
 
     slotStartButton.addEventListener('click', spinReels);
+    slotNewGameButton.addEventListener('click', startNewGame);
     window.addEventListener('load', function () {
         app.slotMachineController.updateCredits();
     });
