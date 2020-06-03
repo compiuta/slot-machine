@@ -46,7 +46,11 @@
             localStorage.setItem('userCredits', currentCredits);
         }
 
-        app.slotMachineController.creditsUpdated(currentCredits, amount);
+        if(amount < 0) {
+            app.slotMachineController.creditsUpdated(currentCredits);
+        } else {
+            app.slotMachineController.creditsUpdated(currentCredits, amount);
+        }
     }
 
     console.log('model initialzed');
