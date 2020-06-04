@@ -61,11 +61,6 @@
         userCredits.setAttribute('data-credits', amount);
         userCredits.innerText = amount;
         creditCounter = amount;
-
-        if(amount === 0) {
-            setSpinButtonState(false);
-            showSlotResults();
-        }
     }
 
     function newReelPosition(reel, reelItemHeight, reelMaxHeight) {
@@ -130,13 +125,14 @@
     }
 
     function startNewGame() {
+        toggleResultState('game-over');
+        slotNewGameButton.setAttribute('disabled', 'disabled');
+        app.slotMachineController.updateCredits();
+
         slotReels.forEach(reel => {
             reel.style.top = 0;
         });
 
-        toggleResultState('game-over');
-        slotNewGameButton.setAttribute('disabled', 'disabled');
-        app.slotMachineController.updateCredits(5);
         setSpinButtonState(true);
     }
 
