@@ -34,19 +34,19 @@
         const getCredits = localStorage.getItem('userCredits');
         let currentCredits;
 
-        if(getCredits) {
+        if ((getCredits && amount) || (getCredits > 0)) {
             currentCredits = +(getCredits);
         } else {
             localStorage.setItem('userCredits', 5);
             currentCredits = 5;
         }
 
-        if(amount) {
+        if (amount) {
             currentCredits += amount;
             localStorage.setItem('userCredits', currentCredits);
         }
 
-        if(amount < 0) {
+        if (amount < 0) {
             app.slotMachineController.creditsUpdated(currentCredits);
         } else {
             app.slotMachineController.creditsUpdated(currentCredits, amount);
