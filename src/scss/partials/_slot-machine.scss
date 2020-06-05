@@ -13,12 +13,17 @@ body {
     
 }
 
-.slot--reel-container {
+.slot-machine-container {
+    width: 800px;
+}
+
+.slot-machine__reel-container {
     display: flex;
+    justify-content: center;
     overflow: hidden;
 }
 
-.slot--reel {
+.slot-machine__reel {
     position: relative;
     margin: 0 10px;
 }
@@ -33,14 +38,14 @@ body {
     visibility: hidden;
 }
 
-.slot--inner-reel {
+.slot-machine__inner-reel {
     position: absolute;
     transition: top .03s ease-in-out;
     width: 100%;
     top: 0;
 }
 
-.slot--reel-element {
+.slot-machine__reel-element {
     background-color: aliceblue;
     height: 100%;
     display: flex;
