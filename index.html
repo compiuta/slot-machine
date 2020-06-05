@@ -9,24 +9,128 @@
     </head>
     <body data-element="bodyTag" class="body-tag">
         <h1>Slot Machine</h1>
-        <div class="sot-machine">
-            <div class="slot--reel-container">
-                <div class="slot--reel">
-                    <div data-reel="1"  class="slot--inner-reel"></div>
-                    <img src="dist/images/150-placeholder.png" alt="" class="placeholder-image">
-                </div>
-                <div class="slot--reel">
-                    <div data-reel="2"  class="slot--inner-reel"></div>
-                    <img src="dist/images/150-placeholder.png" alt="" class="placeholder-image">
-                </div>
-                <div class="slot--reel">
-                    <div data-reel="3" class="slot--inner-reel"></div>
-                    <img src="dist/images/150-placeholder.png" alt="" class="placeholder-image">
+        <div class="slot-machine-container">
+            <div class="slot-sign">
+                <div class="slot-sign__banner"></div>
+                <div class="slot-sign__prizes-container">
+                    <div class="slot-sign__prizes-heading"></div>
+                    <div class="slot-sign__prize">
+                        <div class="slot-sign__prize-image-row">
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/diamond.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/diamond.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/diamond.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                        </div>
+                        <div class="slot-sign__amount">
+                            <h5 class="slot-sign__prize-amount">200</h5>
+                        </div>
+                    </div>
+                    <div class="slot-sign__prize">
+                        <div class="slot-sign__prize-image-row">
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/seven.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/seven.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/seven.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                        </div>
+                        <div class="slot-sign__amount">
+                            <h5 class="slot-sign__prize-amount">80</h5>
+                        </div>
+                    </div>
+                    <div class="slot-sign__prize">
+                        <div class="slot-sign__prize-image-row">
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/triple-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/triple-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/triple-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                        </div>
+                        <div class="slot-sign__amount">
+                            <h5 class="slot-sign__prize-amount">40</h5>
+                        </div>
+                    </div>
+                    <div class="slot-sign__prize">
+                        <div class="slot-sign__prize-image-row">
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/double-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/double-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/double-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                        </div>
+                        <div class="slot-sign__amount">
+                            <h5 class="slot-sign__prize-amount">30</h5>
+                        </div>
+                    </div>
+                    <div class="slot-sign__prize">
+                        <div class="slot-sign__prize-image-row">
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/single-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/single-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/single-bar.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                        </div>
+                        <div class="slot-sign__amount">
+                            <h5 class="slot-sign__prize-amount">20</h5>
+                        </div>
+                    </div>
+                    <div class="slot-sign__prize">
+                        <div class="slot-sign__prize-image-row">
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/cherry.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/cherry.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                            <div class="slot-sign__prize-image-container">
+                                <img src="dist/images/cherry.png" alt="" class="slot-sign__prize-image">
+                            </div>
+                        </div>
+                        <div class="slot-sign__amount">
+                            <h5 class="slot-sign__prize-amount">10</h5>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <button data-slot="startButton" class="slot--start-button">Start</button>
-            <button data-slot="newGameButton" class="slot__new-game-button" disabled="disabled">New Game</button>
-            <div data-slot="credits" class="user-credits"></div>
+            <div class="sot-machine">
+                <div class="slot-machine__reel-container">
+                    <div class="slot-machine__reel">
+                        <div data-reel="1"  class="slot-machine__inner-reel"></div>
+                        <img src="dist/images/150-placeholder.png" alt="" class="placeholder-image">
+                    </div>
+                    <div class="slot-machine__reel">
+                        <div data-reel="2"  class="slot-machine__inner-reel"></div>
+                        <img src="dist/images/150-placeholder.png" alt="" class="placeholder-image">
+                    </div>
+                    <div class="slot-machine__reel">
+                        <div data-reel="3" class="slot-machine__inner-reel"></div>
+                        <img src="dist/images/150-placeholder.png" alt="" class="placeholder-image">
+                    </div>
+                </div>
+                <button data-slot="startButton" class="slot--start-button">Start</button>
+                <button data-slot="newGameButton" class="slot__new-game-button" disabled="disabled">New Game</button>
+                <div data-slot="credits" class="user-credits"></div>
+            </div>
         </div>
 
         <script src="dist/js/app.min.js"></script>
