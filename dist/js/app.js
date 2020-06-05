@@ -162,7 +162,7 @@
         reelElementContainer.setAttribute('data-symbol', key);
         reelElementContainer.setAttribute('data-slot-value', object.value);
 
-        reelElementContainer.classList.add('slot--reel-element');
+        reelElementContainer.classList.add('slot-machine__reel-element');
         reelElementContainer.classList.add(object.symbol);
 
         image.classList.add('reel-image');
@@ -220,7 +220,7 @@
 
         app.slotMachineController.updateCredits(-1);
 
-        console.log(`reel count using .length ${slotReels.length}`);
+        bodyTag.classList.add('slot-spin');
 
         slotReels.forEach(function (reel, index) {
             const selectRandomReelSlot = Math.ceil(Math.random() * reelNodeCount);
@@ -246,6 +246,7 @@
                 clearInterval(spinInterval);
 
                 if(index === (slotReels.length - 1)) {
+                    bodyTag.classList.remove('slot-spin');
                     app.slotMachineController.evaluateSlotRow(slotReels);
                 }
             }, spinIntervalTimeout);
