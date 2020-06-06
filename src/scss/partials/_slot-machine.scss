@@ -2,6 +2,15 @@
     box-sizing: border-box;
 }
 
+h1, 
+h2, 
+h3, 
+h4, 
+h5, 
+h6 {
+    margin: 0;
+}
+
 body {
     background-color: $primary-color;
     color: $grey;
@@ -13,8 +22,13 @@ body {
     
 }
 
+
 .slot-machine-container {
     width: 800px;
+}
+
+.slot-machine__game-area {
+    display: flex;
 }
 
 .slot-machine__reel-container {
@@ -26,6 +40,7 @@ body {
 .slot-machine__reel {
     position: relative;
     margin: 0 10px;
+    flex: 1;
 }
 
 .reel-image,
