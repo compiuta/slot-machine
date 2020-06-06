@@ -3,9 +3,10 @@
 
     const bodyTag = document.querySelector('[data-element="bodyTag"]');
     const slotReels = document.querySelectorAll('[data-reel]');
+    const playerInfoCreditsWon = document.querySelectorAll('[data-player-info="creditsWon"]');
+    const playerInfoCurrentCredits = document.querySelector('[data-player-info="playerCredits"]');
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
     const slotNewGameButton = document.querySelector('[data-slot="newGameButton"]');
-    const userCredits = document.querySelector('[data-slot="credits"]');
     const currentData = app.slotMachineController.getCurrentData('default');
     const resultStateTimeout = 1000;
     let creditCounter;
@@ -58,8 +59,8 @@
     }
 
     function populateUserCredits(amount) {
-        userCredits.setAttribute('data-credits', amount);
-        userCredits.innerText = amount;
+        playerInfoCurrentCredits.setAttribute('data-credits', amount);
+        playerInfoCurrentCredits.innerText = amount;
         creditCounter = amount;
     }
 
