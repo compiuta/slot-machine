@@ -278,7 +278,7 @@
 
     function playerWins(valueWon) {
         toggleResultState('you-win');
-        console.log(valueWon);
+        playerInfoCreditsWon.innerText = valueWon;
 
         setTimeout(() => {
             toggleResultState('you-win');
