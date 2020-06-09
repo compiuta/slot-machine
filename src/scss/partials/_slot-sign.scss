@@ -1,5 +1,5 @@
 .slot-sign {
-    padding: 0 60px 60px 60px;
+    padding: 0 60px 36px 60px;
     background-color: #000;
     background: repeating-linear-gradient(
         #000,
@@ -29,10 +29,13 @@
     border-radius: 16px 0 0 16px;
 }
 
+.slot-sign__banner {
+    display: none;
+}
+
 .prizes-heading {
     background-color: #58c8b2;
-    font-size: 60px;
-    padding: 10px;
+    font-size: 50px;
     color: #fff;
     text-shadow: 0px 0px 6px #000;
     border: 6px solid #000;
@@ -40,17 +43,31 @@
     text-align: center;
 }
 
-.slot-sign__prize,
 .slot-sign__prize-image-row {
     display: flex;
+    width: 62%;
+    justify-content: space-around;
 }
 
 .slot-sign__prize {
+    display: flex;
     align-items: center;
     width: 49%;
     background-color: #dcdece;
     margin: 1px;
     flex: 1 1 auto;
+}
+
+.slot-sign__prize:nth-child(1) {
+    border-radius: 6px 0 0 0;
+}
+
+.slot-sign__prize:nth-child(5) {
+    border-radius: 0 0 0 6px;
+}
+
+.slot-sign__prize-image-container {
+    width: 50px;
 }
 
 .slot-sign__prize-image {
@@ -59,6 +76,13 @@
 }
 
 .slot-sign__amount {
-    font-size: 80px;
-    padding: 10px;
+    flex: 1 1 auto;
+    text-align: center;
+}
+
+.slot-sign__prize-amount {
+    color: #d13b32;
+    font-weight: bold;
+    text-shadow: 2px 2px 1px #000;
+    font-size: 50px;
 }
