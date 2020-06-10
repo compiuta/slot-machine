@@ -1,6 +1,11 @@
 .slot-sign {
+    padding: 20px 20px 0 20px;
+    background-image: $brush-steel-gradient;
+}
+
+.slot-sign__inner {
     padding: 0 60px 36px 60px;
-    background-color: #000;
+    background-color: $dark;
     background: repeating-linear-gradient(
         #000,
         #000 10px,
@@ -11,12 +16,12 @@
 
 .slot-sign__prizes-container {
     padding: 6px;
-    background-color: #a33b6c;
+    background-color: $violet;
 }
 
 .slot-sign__prizes-heading {
     padding: 6px;
-    background-color: #d97ab8;
+    background-color: $pink;
     border-radius: 16px 16px 0 16px;
 }
 
@@ -24,8 +29,8 @@
     display: flex;
     flex-wrap: wrap;
     padding: 4px;
-    background-color: #000;
-    border: 6px solid #d97ab8;
+    background-color: $dark;
+    border: 6px solid $pink;
     border-radius: 16px 0 0 16px;
 }
 
@@ -34,11 +39,11 @@
 }
 
 .prizes-heading {
-    background-color: #58c8b2;
+    background-color: $seafoam;
     font-size: 50px;
-    color: #fff;
-    text-shadow: 0px 0px 6px #000;
-    border: 6px solid #000;
+    color: $light;
+    text-shadow: 0px 0px 6px $dark;
+    border: 6px solid $dark;
     border-radius: 16px 16px 0 16px;
     text-align: center;
 }
@@ -53,7 +58,7 @@
     display: flex;
     align-items: center;
     width: 49%;
-    background-color: #dcdece;
+    background-color: $beige;
     margin: 1px;
     flex: 1 1 auto;
 }
@@ -81,8 +86,8 @@
 }
 
 .slot-sign__prize-amount {
-    color: #d13b32;
+    color: $red;
     font-weight: bold;
-    text-shadow: 2px 2px 1px #000;
+    text-shadow: 2px 2px 1px $dark;
     font-size: 50px;
 }
