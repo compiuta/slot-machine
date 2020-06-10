@@ -12,16 +12,19 @@ h6 {
 }
 
 body {
-    background-color: $primary-color;
+    background-color: $beige;
     color: $grey;
     font-family: $font-family;
 }
 
 .button--disabled {
-    background-color: red;
-    
+    background-color: $red;
 }
 
+.slot-machine {
+    padding: 20px 20px 0 20px;
+    background-image: $brush-steel-gradient;
+}
 
 .slot-machine-container {
     width: 800px;
@@ -29,6 +32,18 @@ body {
 
 .slot-machine__game-area {
     display: flex;
+}
+
+.slot-machine__reel-area {
+    flex: 1 1 auto;
+}
+
+.slot-machine__reel-inner {
+    background-color: $dark;
+}
+
+.slot-machine__player-info {
+    width: 25%;
 }
 
 .slot-machine__reel-container {
@@ -40,7 +55,6 @@ body {
 .slot-machine__reel {
     position: relative;
     margin: 0 10px;
-    flex: 1;
 }
 
 .reel-image,
