@@ -1,4 +1,12 @@
-$primary-color: blanchedalmond;
+$dark: #000;
+$light: #fff;
 $grey: #333;
+$pink: #d97ab8;
+$violet: #a33b6c;
+$seafoam: #58c8b2;
+$beige: #dcdece;
+$red: #d13b32;
+
+$brush-steel-gradient: -webkit-repeating-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 6%, rgba(255,255,255,0.1) 7.5%),-webkit-repeating-linear-gradient(left, rgba(0,0,0,0) 0%, rgba(0,0,0,0) 4%, rgba(0,0,0,0.03) 4.5%),-webkit-repeating-linear-gradient(left, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 1.2%, rgba(255,255,255,0.15) 2.2%),linear-gradient(180deg, #c7c7c7 0%, #e6e6e6 47%, #c7c7c7 53%, #b3b3b3 100%);
 
 $font-family: Arial, Helvetica, sans-serif;
