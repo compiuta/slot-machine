@@ -22,15 +22,25 @@
 
 .slot-machine__reel-inner {
     background-color: $dark;
+    padding: 20px 0;
 }
 
 .slot-machine__player-info {
     width: 25%;
     background-color: $dark;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.player-info__container {
+    width: 60%;
 }
 
 .player-info__title {
     color: $grey;
+    text-transform: uppercase;
+    font-size: 12px;
 }
 
 .player-info__screen {
@@ -39,6 +49,7 @@
     min-height: 30px;
     background-color: $dark-red;
     text-align: right;
+    border-radius: 8px;
 }
 
 .player-info__screen-text {
@@ -53,6 +64,19 @@
     0 0 100px $red,
     0 0 150px $red;
     font-weight: bold;
+}
+
+.player-info__winners-paid {
+    margin: 0 0 6px 0;
+}
+
+.player-info__played-credits {
+    display: flex;
+    margin: 6px 0 0 0;
+}
+
+.player-info__played-credits .player-info__screen {
+    width: 50%;
 }
 
 .slot-machine__reel-container {
