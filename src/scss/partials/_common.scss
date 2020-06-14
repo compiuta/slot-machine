@@ -12,7 +12,12 @@ h6 {
 }
 
 .body-tag {
-    background-color: $beige;
     color: $grey;
     font-family: $font-family;
+    background-image: url('../images/casino-background.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
