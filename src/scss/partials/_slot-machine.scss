@@ -1,7 +1,3 @@
-.button--disabled {
-    background-color: $red;
-}
-
 .slot-machine {
     padding: 20px 20px 0 20px;
     background-image: $brush-steel-gradient;
@@ -115,4 +111,33 @@
     align-items: center;
     justify-content: center;
     padding: 12px;
+}
+
+.slot-machine__button-area {
+    padding: 10px 0;
+}
+
+.slot-machine__button {
+    padding: 10px;
+    box-shadow: 4px 5px $dark;
+    cursor: pointer;
+    position: relative;
+    background-color: $light;
+    border-radius: 2px;
+    border: 0;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.slot-spin .slot-machine__start-button {
+    animation-name: glow;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+}
+
+.slot-machine__button:hover,
+.button--disabled {
+    box-shadow: 2px 3px #000;
+    top: 2px;
 }
