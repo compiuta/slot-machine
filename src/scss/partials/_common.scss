@@ -21,3 +21,9 @@ h6 {
     align-items: center;
     justify-content: center;
 }
+
+@keyframes glow {
+    0% {background-color: $light;}
+    50%{background-color: $orange;}
+    100%{opacity: $light;}
+  }
