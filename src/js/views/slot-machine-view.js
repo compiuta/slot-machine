@@ -129,6 +129,7 @@
     function startNewGame() {
         toggleResultState('game-over');
         slotNewGameButton.setAttribute('disabled', 'disabled');
+        slotNewGameButton.classList.add('button--disabled');
         app.slotMachineController.updateCredits();
 
         slotReels.forEach(reel => {
@@ -141,6 +142,7 @@
     function gameOver() {
         toggleResultState('game-over');
         slotNewGameButton.removeAttribute('disabled');
+        slotNewGameButton.classList.remove('button--disabled');
     }
 
     function playerWins(valueWon) {
