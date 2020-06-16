@@ -141,3 +141,78 @@
     box-shadow: 2px 3px #000;
     top: 2px;
 }
+
+@media (max-width: 720px) {
+    .slot-machine-container {
+        width: 100%;
+    }
+
+    .slot-machine {
+        padding: 8px 8px 0 8px;
+    }
+    
+    .slot-machine__game-area {
+        flex-wrap: wrap;
+    }
+
+    .slot-machine__reel-area {
+        padding: 0;
+    }
+
+    .slot-machine__reel {
+        margin: 0 2px;
+    }
+
+    .placeholder-image {
+        width: 90px;
+    }
+
+    .slot-machine__reel-element {
+        height: 90px;
+        width: 90px;
+    }
+
+    .slot-machine__player-info {
+        width: 100%;
+    }
+
+    .player-info__container {
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        margin: 0 0 6px 0;
+    }
+
+    .player-info__screen {
+        margin: 2px 0 0 0;
+    }
+
+    .player-info__winners-paid {
+        margin: 0;
+        text-align: center;
+    }
+
+    .player-info__credits {
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .player-info__played-credits {
+        flex-direction: column;
+        align-items: center;
+        margin: 0;
+    }
+
+    @media (orientation: portrait) and (max-width: 720px) {
+        .slot-machine-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .slot-sign {
+            flex: 1 1 auto;
+            overflow: scroll;
+        }
+    }
+}
