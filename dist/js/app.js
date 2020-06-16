@@ -143,6 +143,7 @@
     const currentData = app.slotMachineController.getCurrentData('default');
     const resultStateTimeout = 1000;
     let creditCounter;
+    let currentState;
 
     function setSpinButtonState(isActive) {
         if(isActive) {
@@ -221,7 +222,10 @@
 
         app.slotMachineController.updateCredits(-1);
 
-        playerInfoCreditsWon.innerText = '';
+        if(currentState) {
+            toggleResultState(currentState);
+            playerInfoCreditsWon.innerText = '';
+        }
 
         bodyTag.classList.add('slot-spin');
 
@@ -230,10 +234,6 @@
             const chosenReelSlotElementSymbol = document.querySelector(`[data-slot-position="${selectRandomReelSlot}"]`).dataset.symbol;
             const stopOnElement = selectRandomReelSlot - 1;
             const spinIntervalTimeout = initialSpinIntervalTimeout + (index * fullSpinInterval) + (passOneReelSlotInterval * stopOnElement);
-
-            console.log('selectRandomReelSlot ' + selectRandomReelSlot);
-            console.log('stopOnElement: ' + stopOnElement);
-            console.log('spinIntervalTimeout: ' + spinIntervalTimeout);
 
             reel.style.top = 0;
 
@@ -258,6 +258,12 @@
     }
 
     function toggleResultState(state) {
+        if (bodyTag.classList.contains(state)) {
+            currentState = '';
+        } else {
+            currentState = state;
+        }
+
         bodyTag.classList.toggle(state);
     }
 
@@ -287,7 +293,6 @@
         playerInfoCreditsWon.innerText = valueWon;
 
         setTimeout(() => {
-            toggleResultState('you-win');
             setSpinButtonState(true);
         }, resultStateTimeout);
     }
@@ -297,7 +302,6 @@
         playerInfoCreditsWon.innerText = 'Try Again';
 
         setTimeout(() => {
-            toggleResultState('try-again');
             setSpinButtonState(true);
         }, resultStateTimeout);
     }
