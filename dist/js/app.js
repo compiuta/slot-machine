@@ -136,7 +136,7 @@
 
     const bodyTag = document.querySelector('[data-element="bodyTag"]');
     const slotReels = document.querySelectorAll('[data-reel]');
-    const playerInfoCreditsWon = document.querySelectorAll('[data-player-info="creditsWon"]');
+    const playerInfoCreditsWon = document.querySelector('[data-player-info="creditsWon"]');
     const playerInfoCurrentCredits = document.querySelector('[data-player-info="playerCredits"]');
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
     const slotNewGameButton = document.querySelector('[data-slot="newGameButton"]');
@@ -221,6 +221,8 @@
 
         app.slotMachineController.updateCredits(-1);
 
+        playerInfoCreditsWon.innerText = '';
+
         bodyTag.classList.add('slot-spin');
 
         slotReels.forEach(function (reel, index) {
@@ -260,6 +262,7 @@
     }
 
     function startNewGame() {
+        playerInfoCreditsWon.innerText = '';
         toggleResultState('game-over');
         slotNewGameButton.setAttribute('disabled', 'disabled');
         slotNewGameButton.classList.add('button--disabled');
@@ -276,6 +279,7 @@
         toggleResultState('game-over');
         slotNewGameButton.removeAttribute('disabled');
         slotNewGameButton.classList.remove('button--disabled');
+        playerInfoCreditsWon.innerText = 'Game Over';
     }
 
     function playerWins(valueWon) {
@@ -290,6 +294,7 @@
 
     function playerLoses() {
         toggleResultState('try-again');
+        playerInfoCreditsWon.innerText = 'Try Again';
 
         setTimeout(() => {
             toggleResultState('try-again');
