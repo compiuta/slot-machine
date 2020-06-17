@@ -318,6 +318,10 @@
         }
     }
 
+    if ((/Mobi/i.test(navigator.userAgent)) || (/Android/i.test(navigator.userAgent))) {
+        bodyTag.classList.add('mobile');
+    }
+
     populateSlotReels(currentData);
 
     slotStartButton.addEventListener('click', spinReels);
