@@ -92,32 +92,33 @@
     font-size: 50px;
 }
 
-@media (max-width: 720px) {
-    .slot-sign {
+@media (orientation: portrait) and (max-width: 720px) {
+    .mobile .slot-sign {
         padding: 8px 8px 0 8px;
     }
 
-    .slot-sign__inner {
+    .mobile .slot-sign__inner {
         padding: 0 20px 16px 20px;
     }
 
-    .slot-sign__prize {
+    .mobile .slot-sign__prize {
         width: 100%;
+        padding: 5px;
     }
 
-    .slot-sign__prize-image {
+    .mobile .slot-sign__prize-image {
         margin: 1px;
     }
 
-    .slot-sign__prize-amount {
+    .mobile .slot-sign__prize-amount {
         font-size: 36px;
     }
 
-    .slot-sign__prize:nth-child(5) {
+    .mobile .slot-sign__prize:nth-child(5) {
         border-radius: 0;
     }
 
-    .slot-sign__prize:nth-child(6) {
+    .mobile .slot-sign__prize:nth-child(6) {
         border-radius: 0 0 0 6px;
     }
 }
