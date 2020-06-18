@@ -8,6 +8,8 @@
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
     const slotNewGameButton = document.querySelector('[data-slot="newGameButton"]');
     const currentData = app.slotMachineController.getCurrentData('default');
+    let soundSpinEl = document.querySelector('[data-slot-audio="spin"]');
+    let soundReelEl = document.querySelector('[data-slot-audio="reelSounds"]');
     const resultStateTimeout = 1000;
     let creditCounter;
     let currentState;
@@ -89,12 +91,17 @@
 
         app.slotMachineController.updateCredits(-1);
 
+        soundSpinEl.play();
+
         if(currentState) {
             toggleResultState(currentState);
             playerInfoCreditsWon.innerText = '';
+            soundReelEl.currentTime = 0;
         }
 
         bodyTag.classList.add('slot-spin');
+
+        soundReelEl.src = 'dist/audio/stop-reel.wav';
 
         slotReels.forEach(function (reel, index) {
             const selectRandomReelSlot = Math.ceil(Math.random() * reelNodeCount);
@@ -113,9 +120,14 @@
             }, passOneReelSlotInterval);
 
             setTimeout(() => {
+                soundReelEl.pause();
+                soundReelEl.currentTime = 0;
                 clearInterval(spinInterval);
+                soundReelEl.play();
 
                 if(index === (slotReels.length - 1)) {
+                    soundSpinEl.pause();
+                    soundSpinEl.currentTime = 0;
                     bodyTag.classList.remove('slot-spin');
                     app.slotMachineController.evaluateSlotRow(slotReels);
                 }
@@ -156,6 +168,8 @@
     }
 
     function playerWins(valueWon) {
+        soundReelEl.src = 'dist/audio/win.wav';
+        soundReelEl.play();
         toggleResultState('you-win');
         playerInfoCreditsWon.innerText = valueWon;
 
