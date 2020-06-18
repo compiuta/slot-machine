@@ -9,6 +9,21 @@
     </head>
     <body data-element="bodyTag" class="body-tag">
         <div class="slot-machine-container">
+            <audio 
+                src="dist/audio/spinning.wav" 
+                class="slot-machine__audio hide" 
+                data-slot-audio="spin" 
+                preload="auto" 
+                controls="none"
+                loop >
+            </audio>
+            <audio 
+                src="" 
+                class="slot-machine__audio hide" 
+                data-slot-audio="reelSounds" 
+                preload="auto" 
+                controls="none">
+            </audio>
             <div class="slot-sign">
                 <div class="slot-sign__inner">
                     <div class="slot-sign__prizes-container">
