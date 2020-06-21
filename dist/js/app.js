@@ -140,12 +140,24 @@
     const playerInfoCurrentCredits = document.querySelector('[data-player-info="playerCredits"]');
     const slotStartButton = document.querySelector('[data-slot="startButton"]');
     const slotNewGameButton = document.querySelector('[data-slot="newGameButton"]');
+    const slotPlayCreditButton = document.querySelector('[data-slot="playCreditButton"]');
     const currentData = app.slotMachineController.getCurrentData('default');
-    let soundSpinEl = document.querySelector('[data-slot-audio="spin"]');
-    let soundReelEl = document.querySelector('[data-slot-audio="reelSounds"]');
+    const soundSpinEl = document.querySelector('[data-slot-audio="spin"]');
+    const soundReelEl = document.querySelector('[data-slot-audio="reelSounds"]');
     const resultStateTimeout = 1000;
+    let playedCredits = 1;
     let creditCounter;
     let currentState;
+
+    function setPlayedCredits() {
+        if (playedCredits === 1) {
+            playedCredits = 2;
+            slotPlayCreditButton.innerText = 'Play 1 Credit';
+        } else {
+            playedCredits = 1;
+            slotPlayCreditButton.innerText = 'Play 2 Credits';
+        }
+    }
 
     function setSpinButtonState(isActive) {
         if(isActive) {
@@ -213,6 +225,20 @@
         return `${newTopPosition}px`;
     }
 
+    function reelSpinInnerSetTimeOut(spinInterval, index) {
+        soundReelEl.pause();
+        soundReelEl.currentTime = 0;
+        clearInterval(spinInterval);
+        soundReelEl.play();
+
+        if(index === (slotReels.length - 1)) {
+            soundSpinEl.pause();
+            soundSpinEl.currentTime = 0;
+            bodyTag.classList.remove('slot-spin');
+            app.slotMachineController.evaluateSlotRow(slotReels);
+        }
+    }
+
     function spinReels() {
         const reelItemHeight = slotReels[0].parentNode.offsetHeight;
         const reelNodeCount = slotReels[0].childElementCount;
@@ -222,7 +248,7 @@
         const fullSpinInterval = 300;
         const initialSpinIntervalTimeout = 7500;
 
-        app.slotMachineController.updateCredits(-1);
+        app.slotMachineController.updateCredits(playedCredits * -1);
 
         soundSpinEl.play();
 
@@ -243,7 +269,6 @@
             const spinIntervalTimeout = initialSpinIntervalTimeout + (index * fullSpinInterval) + (passOneReelSlotInterval * stopOnElement);
 
             reel.style.top = 0;
-
             reel.setAttribute('data-chosen-slot', chosenReelSlotElementSymbol);
 
             setSpinButtonState(false);
@@ -253,17 +278,7 @@
             }, passOneReelSlotInterval);
 
             setTimeout(() => {
-                soundReelEl.pause();
-                soundReelEl.currentTime = 0;
-                clearInterval(spinInterval);
-                soundReelEl.play();
-
-                if(index === (slotReels.length - 1)) {
-                    soundSpinEl.pause();
-                    soundSpinEl.currentTime = 0;
-                    bodyTag.classList.remove('slot-spin');
-                    app.slotMachineController.evaluateSlotRow(slotReels);
-                }
+                reelSpinInnerSetTimeOut(spinInterval, index);
             }, spinIntervalTimeout);
 
         });
@@ -284,6 +299,8 @@
         toggleResultState('game-over');
         slotNewGameButton.setAttribute('disabled', 'disabled');
         slotNewGameButton.classList.add('button--disabled');
+        slotPlayCreditButton.classList.remove('button--disabled');
+        slotPlayCreditButton.remove('disabled');
         app.slotMachineController.updateCredits();
 
         slotReels.forEach(reel => {
@@ -297,6 +314,8 @@
         toggleResultState('game-over');
         slotNewGameButton.removeAttribute('disabled');
         slotNewGameButton.classList.remove('button--disabled');
+        slotPlayCreditButton.classList.add('button--disabled');
+        slotPlayCreditButton.setAttribute('disabled', 'disabled');
         playerInfoCreditsWon.innerText = 'Game Over';
     }
 
@@ -340,6 +359,7 @@
 
     slotStartButton.addEventListener('click', spinReels);
     slotNewGameButton.addEventListener('click', startNewGame);
+    slotPlayCreditButton.addEventListener('click', setPlayedCredits);
     window.addEventListener('load', function () {
         app.slotMachineController.updateCredits();
     });
