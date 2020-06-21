@@ -11,6 +11,7 @@
     const currentData = app.slotMachineController.getCurrentData('default');
     const soundSpinEl = document.querySelector('[data-slot-audio="spin"]');
     const soundReelEl = document.querySelector('[data-slot-audio="reelSounds"]');
+    const playedCredtsScreen = document.querySelector('[data-player-info="creditsUsed"]');
     const resultStateTimeout = 1000;
     let playedCredits = 1;
     let creditCounter;
@@ -19,9 +20,11 @@
     function setPlayedCredits() {
         if (playedCredits === 1) {
             playedCredits = 2;
+            playedCredtsScreen.innerText = 2;
             slotPlayCreditButton.innerText = 'Play 1 Credit';
         } else {
             playedCredits = 1;
+            playedCredtsScreen.innerText = 1;
             slotPlayCreditButton.innerText = 'Play 2 Credits';
         }
     }
