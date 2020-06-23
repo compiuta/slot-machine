@@ -27,6 +27,8 @@
             playedCredtsScreen.innerText = 1;
             slotPlayCreditButton.innerText = 'Play 2 Credits';
         }
+
+        app.slotMachineController.updatePlayedCredits(playedCredits);
     }
 
     function setSpinButtonState(isActive) {
@@ -221,13 +223,31 @@
         }
     }
 
+    function checkCredits() {
+        let enoughCredits = true;
+
+        if ((creditCounter - playedCredits) < 0) {
+            enoughCredits = false;
+        }
+
+        return enoughCredits;
+    }
+
+    function startSlotMachine() {
+        const enoughCredits = checkCredits();
+
+        if (enoughCredits) {
+            spinReels();
+        }
+    }
+
     if ((/Mobi/i.test(navigator.userAgent)) || (/Android/i.test(navigator.userAgent))) {
         bodyTag.classList.add('mobile');
     }
 
     populateSlotReels(currentData);
 
-    slotStartButton.addEventListener('click', spinReels);
+    slotStartButton.addEventListener('click', startSlotMachine);
     slotNewGameButton.addEventListener('click', startNewGame);
     slotPlayCreditButton.addEventListener('click', setPlayedCredits);
     window.addEventListener('load', function () {
