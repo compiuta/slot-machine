@@ -2,6 +2,7 @@
     'use strict';
 
     let currentData;
+    let playedCredits = 1;
 
     function getCurrentData(dataType) {
         currentData = app.slotMachineModel.getData(dataType);
@@ -14,7 +15,8 @@
 
     function evaluateSlotRow(chosenSlotsArray) {
         const slotToMatch = chosenSlotsArray[0].dataset.chosenSlot;
-        const slotValue = currentData.slots[slotToMatch].value;
+        const slotValue = (currentData.slots[slotToMatch].value) * playedCredits;
+        console.log(`played credits is ${playedCredits} and slot value is ${currentData.slots[slotToMatch].value}`);
         let isMatch = true;
 
         chosenSlotsArray.forEach(slot => {
@@ -54,6 +56,9 @@
         },
         creditsUpdated: function (updatedCredits,  valueAdded) {
             creditsUpdated(updatedCredits, valueAdded);
+        },
+        updatePlayedCredits: function (playedCreditsAmount) {
+            playedCredits = playedCreditsAmount;
         }
     }
 
