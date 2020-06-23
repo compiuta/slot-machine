@@ -172,7 +172,7 @@
         slotNewGameButton.setAttribute('disabled', 'disabled');
         slotNewGameButton.classList.add('button--disabled');
         slotPlayCreditButton.classList.remove('button--disabled');
-        slotPlayCreditButton.remove('disabled');
+        slotPlayCreditButton.removeAttribute('disabled');
         app.slotMachineController.updateCredits();
 
         slotReels.forEach(reel => {
@@ -196,6 +196,8 @@
         soundReelEl.play();
         toggleResultState('you-win');
         playerInfoCreditsWon.innerText = valueWon;
+        slotPlayCreditButton.removeAttribute('disabled');
+        slotPlayCreditButton.classList.remove('button--disabled');
 
         setTimeout(() => {
             setSpinButtonState(true);
@@ -205,6 +207,8 @@
     function playerLoses() {
         toggleResultState('try-again');
         playerInfoCreditsWon.innerText = 'Try Again';
+        slotPlayCreditButton.removeAttribute('disabled');
+        slotPlayCreditButton.classList.remove('button--disabled');
 
         setTimeout(() => {
             setSpinButtonState(true);
@@ -233,11 +237,16 @@
         return enoughCredits;
     }
 
-    function startSlotMachine() {
+    function startSlotMachine()  {
         const enoughCredits = checkCredits();
 
         if (enoughCredits) {
+            slotPlayCreditButton.setAttribute('disabled', 'disabled');
+            slotPlayCreditButton.classList.add('button--disabled');
+            playerInfoCreditsWon.innerText = ''
             spinReels();
+        } else {
+            playerInfoCreditsWon.innerText = 'Low Credits'
         }
     }
 
