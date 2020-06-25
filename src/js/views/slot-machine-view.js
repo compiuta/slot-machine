@@ -97,28 +97,13 @@
         return `${newTopPosition}px`;
     }
 
-    function reelSpinInnerSetTimeOut(spinInterval, index) {
-        soundReelEl.pause();
-        soundReelEl.currentTime = 0;
-        clearInterval(spinInterval);
-        soundReelEl.play();
-
-        if(index === (slotReels.length - 1)) {
-            soundSpinEl.pause();
-            soundSpinEl.currentTime = 0;
-            bodyTag.classList.remove('slot-spin');
-            app.slotMachineController.evaluateSlotRow(slotReels);
-        }
-    }
-
     function spinReels() {
         const reelItemHeight = slotReels[0].parentNode.offsetHeight;
         const reelNodeCount = slotReels[0].childElementCount;
         const reelElementTopCount = reelNodeCount - 1;
         const reelMaxHeight = reelItemHeight * -reelElementTopCount;
         const passOneReelSlotInterval = 50;
-        const fullSpinInterval = 300;
-        const initialSpinIntervalTimeout = 7500;
+        const initialReelRotations = reelNodeCount * 16;
 
         app.slotMachineController.updateCredits(playedCredits * -1);
 
@@ -138,20 +123,39 @@
             const selectRandomReelSlot = Math.ceil(Math.random() * reelNodeCount);
             const chosenReelSlotElementSymbol = document.querySelector(`[data-slot-position="${selectRandomReelSlot}"]`).dataset.symbol;
             const stopOnElement = selectRandomReelSlot - 1;
-            const spinIntervalTimeout = initialSpinIntervalTimeout + (index * fullSpinInterval) + (passOneReelSlotInterval * stopOnElement);
+            let i = 0;
+            const spinInterval = initialReelRotations + (index * reelNodeCount) + stopOnElement;
 
             reel.style.top = 0;
             reel.setAttribute('data-chosen-slot', chosenReelSlotElementSymbol);
 
             setSpinButtonState(false);
 
-            const spinInterval = setInterval(() => {
-                reel.style.top = newReelPosition(reel, reelItemHeight, reelMaxHeight);
-            }, passOneReelSlotInterval);
+            function slotReelInterval() {
 
-            setTimeout(() => {
-                reelSpinInnerSetTimeOut(spinInterval, index);
-            }, spinIntervalTimeout);
+                reel.style.top = newReelPosition(reel, reelItemHeight, reelMaxHeight);
+
+                i += 1;
+
+                if (i < spinInterval){
+                    setTimeout(slotReelInterval, passOneReelSlotInterval);
+                }
+
+                if (i === spinInterval) {
+                    soundReelEl.pause();
+                    soundReelEl.currentTime = 0;
+                    soundReelEl.play();
+
+                    if (index === (slotReels.length - 1)) {
+                        soundSpinEl.pause();
+                        soundSpinEl.currentTime = 0;
+                        bodyTag.classList.remove('slot-spin');
+                        app.slotMachineController.evaluateSlotRow(slotReels);
+                    }
+                }
+            }
+
+            slotReelInterval();
 
         });
     }
