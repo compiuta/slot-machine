@@ -16,7 +16,7 @@
     function evaluateSlotRow(chosenSlotsArray) {
         const slotToMatch = chosenSlotsArray[0].dataset.chosenSlot;
         const slotValue = (currentData.slots[slotToMatch].value) * playedCredits;
-        console.log(`played credits is ${playedCredits} and slot value is ${currentData.slots[slotToMatch].value}`);
+
         let isMatch = true;
 
         chosenSlotsArray.forEach(slot => {
