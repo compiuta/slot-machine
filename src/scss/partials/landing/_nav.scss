@@ -1,0 +1,153 @@
+.slot-landing-selector {
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    width: 36%;
+    position: relative;
+}
+
+.main-nav-wrap {
+    position: relative;
+    width: 60%;
+    overflow: hidden;
+    border-radius: 50%;
+    margin: 20px 0;
+}
+
+.slot-landing-menu {
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    width: 100%;
+}
+
+.nav-top-transition {
+    transition: top .2s ease-in-out;
+}
+
+.placeholder-image {
+    display: block;
+    width: 100%;
+}
+
+.slot-menu-item {
+    border-radius: 50%;
+}
+
+.slot-item {
+    width: 100%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 65%;
+}
+
+.diamond {
+    background-image: url('../images/diamond.png');
+}
+
+.seven {
+    background-image: url('../images/seven.png');
+}
+
+.triple-bar {
+    background-image: url('../images/triple-bar.png');
+}
+
+.double-bar {
+    background-image: url('../images/double-bar.png');
+}
+
+.single-bar {
+    background-image: url('../images/single-bar.png');
+}
+
+.cherry {
+    background-image: url('../images/cherry.png');
+}
+
+.slot-mobile-menu,
+.close-modal-container {
+    display: none;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+    cursor: pointer;
+    transition: opacity 1s ease-in-out;
+}
+
+.mobile-menu-rect {
+    transition: all .3s ease-in-out;
+}
+
+.arrow-up,
+.arrow-down {
+    width: 0px;
+    height: 0px;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+}
+
+.arrow-up {
+    border-bottom: 20px solid $dark-color;
+}
+
+ .arrow-down {
+    border-top: 20px solid $dark-color;
+}
+
+.mobile-menu-open .slot-landing-selector {
+    right: 0;
+}
+
+.mobile-menu-open .mobile-menu-icon {
+    fill: $light-color;
+}
+
+.mobile-menu-open .rect-one,
+.animation-activated .rect-one {
+    transform: translatey(0) translatex(18px) rotate(45deg);
+}
+
+.mobile-menu-open .rect-two,
+.animation-activated .rect-two {
+    opacity: 0;
+}
+
+.mobile-menu-open .rect-three,
+.animation-activated .rect-three {
+    transform: translatey(28px) translatex(-32px) rotate(-45deg);
+}
+
+@media (max-width: 900px) {
+    .main-nav-wrap {
+        width: 200px;
+    }
+
+    .arrow-up {
+        border-bottom: 20px solid $light-color;
+    }
+
+    .arrow-down {
+        border-top: 20px solid $light-color;
+    }
+
+    .slot-mobile-menu {
+        display: block;
+    }
+
+    .mobile-menu-icon {
+        fill: $dark-color;
+    }
+
+    .slot-landing-selector {
+        position: fixed;
+        height: 100vh;
+        width: 100%;
+        right: -100%;
+        transition: all .3s ease-in-out;
+        background-color: $dark-color;
+    }
+}

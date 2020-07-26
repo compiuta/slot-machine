@@ -1,0 +1,30 @@
+* {
+    box-sizing: border-box;
+}
+
+.hide {
+    display: none!important;
+}
+
+.disable-button {
+    pointer-events: none;
+}
+
+.body-tag {
+    margin: 0;
+    padding: 0;
+    font-family: $font;
+}
+
+.button {
+    display: inline-block;
+    padding: 12px;
+    background-color: $light-color;
+    color: $dark-color;
+    width: 160px;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    text-transform: uppercase;
+    transition: all .3s ease-in-out;
+}

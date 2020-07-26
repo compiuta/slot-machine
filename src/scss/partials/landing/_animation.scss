@@ -1,0 +1,116 @@
+@keyframes appear {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes disappear {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+.main-nav-modal {
+    z-index: 3;
+    opacity: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
+
+.diamond-active .main-nav-modal,
+.diamond-active .slot-landing-menu {
+    background: $highlight-color;
+}
+
+.seven-active .main-nav-modal,
+.seven-active .slot-landing-menu {
+    background-color: $red-color;
+}
+
+.triple-bar-active .main-nav-modal,
+.triple-bar-active .slot-landing-menu {
+    background-color: $yellow-color;
+}
+
+.double-bar-active .main-nav-modal,
+.double-bar-active .slot-landing-menu {
+    background-color: $grey-color;
+}
+
+.single-bar-active .main-nav-modal,
+.single-bar-active .slot-landing-menu  {
+    background-color: $teal-color;
+}
+
+.cherry-active .main-nav-modal,
+.cherry-active .slot-landing-menu {
+    background-color: $beige-color;
+}
+
+.animate-close .main-nav-modal {
+    animation: disappear 1s;
+}
+
+.animation-activated .slot-landing-menu,
+.animate-close .slot-landing-menu {
+   z-index: 4;
+}
+
+.animation-activated .slot-mobile-menu {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.animation-activated .main-nav-modal {
+    animation: appear 1s;
+    opacity: 1;
+}
+
+.slot-sign-container {
+    max-width: 500px;
+    margin: 0 0 0 70px;
+}
+
+.slot-sign-image {
+    width: 100%;
+}
+
+.modal-button-container {
+    display: none;
+    margin: 0 0 30px 0;
+}
+
+.animation-activated .close-modal-container {
+    display: block;
+}
+
+.modal-icon {
+    fill: $light-color;
+}
+
+@media (max-width: 900px) {
+    .main-nav-modal {
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .slot-sign-container {
+        display: none;
+    }
+
+    .modal-button-container {
+        display: block;
+    }
+}

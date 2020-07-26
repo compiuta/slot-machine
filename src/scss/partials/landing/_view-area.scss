@@ -1,0 +1,91 @@
+.slot-landing {
+    display: flex;
+    height: 100vh;
+    min-height: 630px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.slot-landing-view {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1 1 auto;
+    background-color: $light-color;
+    position: relative;
+}
+
+.slot-hero-image-container {
+    position: relative;
+}
+
+.slot-hero-container {
+    position: relative;
+    max-width: 40%;
+}
+
+.slot-hero-image {
+    display: block;
+    max-width: 100%;
+}
+
+.slot-hero-title {
+    font-family: 'Oleo Script', cursive;
+    color: $dark-color;
+    font-size: 300px;
+    font-weight: normal;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.slot-hero-button-wrap {
+    position: relative;
+    border-right: 1px solid $highlight-color;
+    border-bottom: 1px solid $highlight-color;
+    height: 50px;
+    width: 50%;
+}
+
+.slot-hero-button {
+    background-color: $light-color;
+    color: $highlight-color;
+    position: absolute;
+    top: 24px;
+    right: 100%;
+    border: 1px solid $highlight-color;
+}
+
+.slot-hero-button:hover {
+    background-color: $highlight-color;
+    color: $light-color;
+}
+
+.slot-landing-modal {
+    position: absolute;
+}
+
+@media (max-width: 900px) {
+    .slot-landing {
+        min-height: 0;
+    }
+
+    .slot-hero-title {
+        font-size: 9em;
+    }
+
+    .slot-hero-button-wrap {
+        border: 0;
+        height: auto;
+        width: auto;
+        margin: 20px 0 0 0;
+    }
+
+    .slot-hero-button {
+        width: 100%;
+        position: static;
+        padding: 12px 9px;
+    }
+}
