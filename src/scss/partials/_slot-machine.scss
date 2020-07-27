@@ -243,8 +243,12 @@
         margin: 0;
     }
 
+    .slot-machine__button-area {
+        text-align: center;
+    }
+
     .slot-machine__button {
-        font-size: 20px;
-        padding: 15px;
+        font-size: 12px;
+        padding: 12px 10px;
     }
 }
