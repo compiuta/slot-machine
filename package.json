@@ -27,7 +27,7 @@
   "homepage": "https://github.com/compiuta/slot-machine#readme",
   "devDependencies": {
     "concat": "^1.0.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.0.2",
     "uglify-es": "^3.3.9"
